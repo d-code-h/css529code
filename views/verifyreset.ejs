@@ -1,134 +1,112 @@
 <!DOCTYPE html>
-<html lang="en"
-      dir="ltr">
+<html lang="en" dir="ltr">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible"
-              content="IE=edge">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Reset Verification</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Reset Verification</title>
 
-        <!-- Prevent the demo from appearing in search engines (REMOVE THIS) -->
-        <meta name="robots"
-              content="noindex">
+    <!-- Prevent the demo from appearing in search engines (REMOVE THIS) -->
+    <meta name="robots" content="noindex">
 
-        <!-- Custom Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500%7CRoboto:400,500&display=swap"
-              rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500%7CRoboto:400,500&display=swap"
+        rel="stylesheet">
 
-        <!-- Perfect Scrollbar -->
-        <link type="text/css"
-              href="/vendor/perfect-scrollbar.css"
-              rel="stylesheet">
+    <!-- Perfect Scrollbar -->
+    <link type="text/css" href="/vendor/perfect-scrollbar.css" rel="stylesheet">
 
-        <!-- Material Design Icons -->
-        <link type="text/css"
-              href="/stylesheets/material-icons.css"
-              rel="stylesheet">
+    <!-- Material Design Icons -->
+    <link type="text/css" href="/stylesheets/material-icons.css" rel="stylesheet">
 
-        <!-- Font Awesome Icons -->
-        <link type="text/css"
-              href="/stylesheets/fontawesome.css"
-              rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/ab2943ba34.js" crossorigin="anonymous"></script>
 
-        <!-- Preloader -->
-        <link type="text/css"
-              href="/vendor/spinkit.css"
-              rel="stylesheet">
+    <!-- Preloader -->
+    <link type="text/css" href="/vendor/spinkit.css" rel="stylesheet">
 
-        <!-- App CSS -->
-        <link type="text/css"
-              href="/stylesheets/app.css"
-              rel="stylesheet">
-              <link rel="stylesheet" href="/stylesheets/custom.css">
+    <!-- App CSS -->
+    <link type="text/css" href="/stylesheets/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/custom.css">
 
-    </head>
+</head>
 
-    <body class="login">
+<body class="login">
 
-        <div class="d-flex align-items-center"
-             style="min-height: 100vh">
-            <div class="col-sm-8 col-md-6 col-lg-4 mx-auto"
-                 style="min-width: 300px;">
-                <div class="text-center mt-5 mb-1">
-                    <div class="avatar avatar-lg">
-                        <img src="/images/logo/primary.svg"
-                             class="avatar-img rounded-circle"
-                             alt="Phebts" />
-                    </div>
+    <div class="d-flex align-items-center" style="min-height: 100vh">
+        <div class="col-sm-8 col-md-6 col-lg-4 mx-auto" style="min-width: 300px;">
+            <div class="text-center mt-5 mb-1">
+                <div class="avatar avatar-lg">
+                    <img src="/images/logo/primary.svg" class="avatar-img rounded-circle" alt="Phebts" />
                 </div>
-                <div class="d-flex justify-content-center mb-5 navbar-light">
-                    <!-- Brand -->
-                    <a href="student-dashboard.html"
-                       class="navbar-brand m-0">
-                        Phebts
-                    </a>
+            </div>
+            <div class="d-flex justify-content-center mb-5 navbar-light">
+                <!-- Brand -->
+                <a href="student-dashboard.html" class="navbar-brand m-0">
+                    Phebts
+                </a>
+            </div>
+            <div class="card navbar-shadow">
+                <div class="card-header text-center">
+                    <h4 class="card-title">Verification</h4>
+                    <p class="card-subtitle">Prove this account belongs to you</p>
                 </div>
-                <div class="card navbar-shadow">
-                    <div class="card-header text-center">
-                        <h4 class="card-title">Verification</h4>
-                        <p class="card-subtitle">Prove this account belongs to you</p>
-                    </div>
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <div class="alert alert-light border-1 border-left-3 border-left-primary d-flex"
-                             role="alert">
-                            <i class="material-icons text-success mr-3">check_circle</i>
-                            <div class="text-body">Enter the 6 digit sent to <%- number %></div>
+                    <div class="alert alert-light border-1 border-left-3 border-left-primary d-flex" role="alert">
+                        <i class="material-icons text-success mr-3">check_circle</i>
+                        <div class="text-body">Enter the 6 digit sent to <%- number %>
                         </div>
+                    </div>
 
-                        <form action="/verifyreset" method="post">
-                            <div class="form-group">
-                                <label class="form-label"
-                                       for="code">OTP code:</label>
-                                <div class="input-group input-group-merge">
-                                    <input id="code" name="code"
-                                           type="text"
-                                           required=""
-                                           class="form-control form-control-prepended"
-                                           placeholder="OTP code">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-envelope"></span>
-                                        </div>
+                    <form action="/verifyreset" method="post">
+                        <div class="form-group">
+                            <label class="form-label" for="code">OTP code:</label>
+                            <div class="input-group input-group-merge">
+                                <input id="code" name="code" type="text" required=""
+                                    class="form-control form-control-prepended" placeholder="OTP code">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <button type="submit"
-                                    class="btn btn-primary btn-block">Verify</button>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center text-black-50">Remember your password? <a href="/login">Login</a></div>
+                        <button type="submit" class="btn btn-primary btn-block">Verify</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center text-black-50">Remember your password? <a href="/login">Login</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- jQuery -->
-        <script src="/vendor/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="/vendor/jquery.min.js"></script>
 
-        <!-- Bootstrap -->
-        <script src="/vendor/popper.min.js"></script>
-        <script src="/vendor/bootstrap.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/vendor/popper.min.js"></script>
+    <script src="/vendor/bootstrap.min.js"></script>
 
-        <!-- Perfect Scrollbar -->
-        <script src="/vendor/perfect-scrollbar.min.js"></script>
+    <!-- Perfect Scrollbar -->
+    <script src="/vendor/perfect-scrollbar.min.js"></script>
 
-        <!-- MDK -->
-        <script src="/vendor/dom-factory.js"></script>
-        <script src="/vendor/material-design-kit.js"></script>
+    <!-- MDK -->
+    <script src="/vendor/dom-factory.js"></script>
+    <script src="/vendor/material-design-kit.js"></script>
 
-        <!-- App JS -->
-        <script src="/javascripts/app.js"></script>
+    <!-- App JS -->
+    <script src="/javascripts/app.js"></script>
 
-        <!-- Highlight.js -->
-        <script src="/javascripts/hljs.js"></script>
+    <!-- Highlight.js -->
+    <script src="/javascripts/hljs.js"></script>
 
-        <!-- App Settings (safe to remove) -->
-        <script src="/javascripts/app-settings.js"></script>
+    <!-- App Settings (safe to remove) -->
+    <script src="/javascripts/app-settings.js"></script>
 
-    </body>
+</body>
 
 </html>
