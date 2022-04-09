@@ -8,7 +8,7 @@ const createError = require('http-errors'),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   session = require('express-session'),
-  expressSanitizer = require('express-sanitizer'),
+  // expressSanitizer = require('express-sanitizer'),
   flash = require('connect-flash'),
   // cookieParser = require('cookie-parser'),
   // MongoDBStore = require('connect-mongodb-session')(session),
@@ -34,14 +34,14 @@ mongoose
 
 // view engine setup
 app.use(logger('dev'));
-app.use(express.json());
+// app.use(express.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 // app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSanitizer());
+// app.use(expressSanitizer());
 app.use(flash());
 
 // express-session

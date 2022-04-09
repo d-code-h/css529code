@@ -2,10 +2,11 @@
 const //Packages
   express = require('express'),
   passport = require('passport'),
+  { body, validationResult } = require('express-validator'),
   router = express.Router(),
   //Models
   User = require('../models/user');
-  
+
 // TWILIO
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -22,6 +23,16 @@ const isLoggedIn = function (req, res, next) {
   }
 };
 
+// Error Handling
+const userErrors = {
+  name: 'Name field can not be empty',
+  email: 'Email not properly formated',
+  number: 'Valid Nigerian phone number is required',
+  password:
+    'Password must be  minimum 8 in length, minimum lowercase of 1, minimum Uppercase of 1, minimum Numbers of 1 and atleast a symbol',
+  confPassword: 'Password those not match',
+};
+
 // Index GET
 router.get('/', isLoggedIn, (req, res) => {
   res.render('dashboard');
@@ -33,76 +44,73 @@ router.get('/signup', (req, res) => {
 });
 
 // Signup Post
-router.post('/signup', async (req, res) => {
-  // Sanitizing inputs
-  req.body.name = req.sanitize(req.body.name);
-  req.body.email = req.sanitize(req.body.email);
-  req.body.number = req.sanitize(req.body.number);
-  req.body.password = req.sanitize(req.body.password);
-  req.body.confPassword = req.sanitize(req.body.confPassword);
-
-  // Regular expression
-  let nameTest = /^[0-9a-zA-Z]{3,}$/,
-    passwordTest =
-      /^(?=.*[a-z].*[a-z])(?=.*[A-Z])(?=.*\d.*\d)[a-zA-Z0-9\S]{8,}$/,
-    numberTest = /^[0-9]{10}$/,
-    username = '2022/1/' + String(x + 1);
-  x++;
-  // Ensuring proper validations
-  if (
-    req.body.name !== '' &&
-    req.body.email !== '' &&
-    req.body.number !== '' &&
-    req.body.number.charAt(0) != 0 &&
-    numberTest.test(req.body.number) == true &&
-    // nameTest.test(req.body.name) &&
-    req.body.password !== '' &&
-    passwordTest.test(req.body.password) &&
-    req.body.confPassword !== '' &&
-    passwordTest.test(req.body.confPassword)
-  ) {
-    // When it ends as desired
-    if (req.body.password === req.body.confPassword) {
-      if (req.body.terms) {
-        // Create new user
-        try {
-          await User.register(
-            new User({
-              name: req.body.name,
-              username: username,
-              number: req.body.number,
-              email: req.body.email,
-            }),
-            req.body.password
-          );
-
-          console.log('Account Created, Please Log in.');
-          req.flash('success', 'Account Created, Please Log in.');
-          res.redirect('/login');
-        } catch (err) {
-          console.log(err);
-          req.flash('error', err.message);
-          res.redirect('/signup');
-        }
-      } else {
-        // When Terms is accepted
-        req.flash(
-          'error',
-          'You need to agree to our terms before you can use our services. Please agree to the terms of use.'
-        );
-        res.redirect('/signup');
-      }
+router.post(
+  '/signup',
+  body('name').trim().escape().not().isEmpty(),
+  body('email').trim().isEmail().normalizeEmail(),
+  body('number').trim().isMobilePhone('en-NG'),
+  body('password').trim().isStrongPassword(),
+  body('confPassword').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('Password confirmation does not match password');
+    }
+    // Indicates the success of this synchronous custom validator
+    return true;
+  }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    const output = {};
+    if (!errors.isEmpty()) {
+      errors.errors.forEach((element) => {
+        output[element.param] = userErrors[element.param];
+      });
+      console.log(output);
+      req.flash('error', output);
+      res.redirect('/signup');
     } else {
-      // When password inputs does not match
-      req.flash('error', 'Sorry, password does not match!');
       res.redirect('/signup');
     }
-  } else {
-    // When form isn't properly filled
-    req.flash('error', "Form isn't properly filled.");
-    res.redirect('/signup');
+
+    // Create new user
+    // try {
+    //   await User.register(
+    //     new User({
+    //       name: req.body.name,
+    //       username: username,
+    //       number: req.body.number,
+    //       email: req.body.email,
+    //     }),
+    //     req.body.password
+    //   );
+
+    //     console.log('Account Created, Please Log in.');
+    //     req.flash('success', 'Account Created, Please Log in.');
+    //     res.redirect('/login');
+    //   } catch (err) {
+    //     console.log(err);
+    //     req.flash('error', err.message);
+    //     res.redirect('/signup');
+    //   }
+    // } else {
+    // When Terms is accepted
+    //     req.flash(
+    //       'error',
+    //       'You need to agree to our terms before you can use our services. Please agree to the terms of use.'
+    //     );
+    //     res.redirect('/signup');
+    //   }
+    // } else {
+    // When password inputs does not match
+    //     req.flash('error', 'Sorry, password does not match!');
+    //     res.redirect('/signup');
+    //   }
+    // } else {
+    //   // When form isn't properly filled
+    //   req.flash('error', "Form isn't properly filled.");
+    //   res.redirect('/signup');
+    // }
   }
-});
+);
 
 // Login OTP verification
 router.get('/verifyuser', isLoggedIn, (req, res) => {
