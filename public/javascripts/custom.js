@@ -11,3 +11,21 @@ $('input#pass-visibility').click(function () {
     $('#password2')[0].type = 'password';
   }
 });
+
+$('#email').keyup(function () {
+  if ($(this)[0].checkValidity()) {
+    $(this).removeClass('is-invalid');
+  } else {
+    $(this).addClass('is-invalid');
+  }
+});
+
+// var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+// return re.test(str);
+
+// $('#email').focus(function () {
+//   let email = $(this).value;
+//   if (email === 'abc') {
+//     console.log('Worked');
+//   }
+// });
