@@ -50,7 +50,7 @@ router.post(
   body('email').trim().isEmail().normalizeEmail(),
   body('number').trim().isMobilePhone('en-NG'),
   body('password').trim().isStrongPassword(),
-  body('confPassword').custom((value, { req }) => {
+  body('password2').custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error('Password confirmation does not match password');
     }
